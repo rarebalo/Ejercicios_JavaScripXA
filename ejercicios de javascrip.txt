@@ -1,0 +1,155 @@
+//Ejercicio 1: "Piramide"
+
+function piramide(numero){
+    let resultado = "";
+    for (let i = 1; i < numero; i++) {        
+            resultado += i;
+            console.log(resultado);        
+      }      
+}
+
+piramide(15);
+
+-----------------------------------------
+
+//Ejercicio 2: Escribir una funcion que reciba 2 array y devuelva un array con todos los elementos que coinciden entre ellos
+
+function combinacion (arraiUno, arraiDos){
+    let nuevoArray = [];
+    for (let i = 0; i < arraiUno.length; i++) {
+        for (let j = 0; j < arraiDos.length; j++) {
+            if (arraiUno[i]===arraiDos[j]) {
+                nuevoArray.push(arraiDos[j]);
+            }            
+        }
+    }
+    return nuevoArray;
+}
+
+let numerosUno = ['rojo', 'azul', 'amarillo'];
+let numerosDos = ['blanco', 'negro', 'rojo'];
+
+console.log(combinacion(numerosUno, numerosDos));
+
+------------------------------------------------
+//3.1) Dado el siguiente objeto
+//let carrito = {
+//    montoTotal: 10,
+//    productos: ["Leche"]
+//}
+//Crear las clases necesarias para generar carritos respetando la estructura del objeto dado.
+//3.2) Agregar un metodo a la clase que agregue un producto al carrito y actualice el montoTotal
+//agregarProducto(nombre, precio, unidades) {
+    // Completar aca...
+//}
+
+class Carrito {
+
+    MontoTotal = 0;
+    Unidades = 0;
+    Productos = [];
+
+    agregarProducto(nuevoProducto, unidades = 1) {
+        for (let i = 0; i < unidades; i++) {
+            this.Productos.push(nuevoProducto);           
+        }
+        this.MontoTotal += (nuevoProducto.Precio * unidades);
+        this.Unidades += unidades;
+    }
+}
+
+class Producto {
+    
+    Nombre;
+    Precio;   
+
+    constructor(nombre, precio) {
+        this.Nombre = nombre;
+        this.Precio = precio;  
+    }
+}
+
+
+let salamin = new Producto("salamin", 889.5);
+let alfajor = new Producto("alfajor", 200);
+let fosforos = new Producto("fosforos", 101.4);
+
+let miCarrito = new Carrito();
+
+miCarrito.agregarProducto(salamin);
+miCarrito.agregarProducto(alfajor);
+miCarrito.agregarProducto(fosforos,5);
+miCarrito.agregarProducto(salamin);
+miCarrito.agregarProducto(alfajor,3);
+miCarrito.agregarProducto(fosforos);
+
+console.log("Importe total: $" + miCarrito.MontoTotal);
+console.log("Cantidad de articulos: " + miCarrito.Unidades);
+for (let i = 0; i < miCarrito.Productos.length; i++) {
+    console.log("* "+ miCarrito.Productos[i].Nombre + " $" + miCarrito.Productos[i].Precio);    
+}
+----------------------------------------------------------------------------------------------------------------------
+class Carrito {
+
+    MontoTotal = 0;
+    //Articulos = 0;
+    Productos = [];
+
+
+    agregarProducto(nuevoProducto, unidad = 1) {
+
+        let repetidos = false;
+
+        for (let i = 0; i < this.Productos.length; i++) {
+            if (this.Productos[i].Nombre === nuevoProducto.Nombre) {
+                this.Productos[i].Unidad += unidad;
+                repetidos = true;
+                break;
+            }
+        }
+
+        if (!repetidos) {
+            nuevoProducto.Unidad = unidad;
+            this.Productos.push(nuevoProducto);
+        }
+
+
+        this.MontoTotal += (nuevoProducto.Precio * unidad);
+        this.Articulos += unidad;
+    }
+}
+
+class Producto {
+
+    Nombre;
+    Precio;
+    Unidad;
+
+    constructor(nombre, precio, unidad) {
+        this.Nombre = nombre;
+        this.Precio = precio;
+        this.Unidad = unidad;
+    }
+}
+
+
+let salamin = new Producto("salamin", 889.5);
+let alfajor = new Producto("alfajor", 200);
+let fosforos = new Producto("fosforos", 101.4);
+
+let miCarrito = new Carrito();
+
+miCarrito.agregarProducto(salamin, 3);
+miCarrito.agregarProducto(alfajor);
+miCarrito.agregarProducto(fosforos, 5);
+miCarrito.agregarProducto(salamin);
+miCarrito.agregarProducto(alfajor, 3);
+miCarrito.agregarProducto(fosforos);
+
+console.log("Importe total: $" + miCarrito.MontoTotal);
+console.log("Cantidad de articulos: " + miCarrito.Articulos);
+console.log(miCarrito.Productos[0]);
+
+
+
+
