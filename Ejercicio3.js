@@ -38,21 +38,12 @@ class Producto {
 class Carrito {
     MontoTotal = 0;
     Productos = [];
-    agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades){
-        let repetido = false;
 
-        for (let i = 0; i < this.Productos.length; i++) {
-            if(this.Productos[i].Nombre==nombre){
-                this.Productos[i].Unidades += unidades;
-                repetido = true;
-                break;
-            }                     
-        }
-        if (!repetido) {
-            this.Productos.push(nombre);
-        }        
-        this.MontoTotal+=(precio*unidades);
+    agregarProducto(nombre, precio, unidades){
+        this.Productos.push(nombre);
+        this.MontoTotal += (Number(precio) * Number(unidades));
     }
+
 
 }
 
