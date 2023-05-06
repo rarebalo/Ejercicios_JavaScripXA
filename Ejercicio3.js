@@ -43,8 +43,8 @@ class Carrito {
       
 
         if (typeof nombre !== "object") {
-            let nuevoProducto = [nombre, precio, unidades];
-            this.Productos.push(nuevoProducto);
+         let nuevoProducto = new Producto(nombre, precio, unidades);
+         this.Productos.push(nuevoProducto);
 
         } else {
             this.Productos.push(nombre);
