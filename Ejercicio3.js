@@ -28,10 +28,10 @@ class Producto {
     Nombre;
     Precio;
     Unidades;
-    constructor(nombre, precio, unidades = 1){
-        this.Nombre=nombre;
-        this.Precio=precio;
-        this.Unidades=unidades;
+    constructor(nombre, precio, unidades = 1) {
+        this.Nombre = nombre;
+        this.Precio = precio;
+        this.Unidades = unidades;
     }
 }
 
@@ -39,9 +39,19 @@ class Carrito {
     MontoTotal = 0;
     Productos = [];
 
-    agregarProducto(nombre, precio, unidades){
-        this.Productos.push(nombre);
+    agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades) {       
+      
+
+        if (typeof nombre !== "object") {
+            let nuevoProducto = [nombre, precio, unidades];
+            this.Productos.push(nuevoProducto);
+
+        } else {
+            this.Productos.push(nombre);
+        }
         this.MontoTotal += (Number(precio) * Number(unidades));
+
+
     }
 
 
@@ -53,11 +63,14 @@ let pan = new Producto("PanLactal", 150);
 let hamburguesa = new Producto("Paty", 400);
 let miCarrito = new Carrito();
 
+miCarrito.agregarProducto("tortillas", 120, 1);
 miCarrito.agregarProducto(queso);
-miCarrito.agregarProducto(queso,300,2);
+miCarrito.agregarProducto(queso, 350, 2);
 miCarrito.agregarProducto(gaseosa);
+miCarrito.agregarProducto("cinta", 50, 2);
 miCarrito.agregarProducto(pan);
 miCarrito.agregarProducto(hamburguesa);
 miCarrito.agregarProducto(pan);
+miCarrito.agregarProducto("galletas", 230, 1);
 
 console.log(miCarrito);
