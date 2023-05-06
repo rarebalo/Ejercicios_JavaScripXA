@@ -38,21 +38,41 @@ class Producto {
 class Carrito {
     MontoTotal = 0;
     Productos = [];
+    Repetidos = 0;
 
-    agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades) {       
-      
+
+
+    agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades) {
+
 
         if (typeof nombre !== "object") {
-         let nuevoProducto = new Producto(nombre, precio, unidades);
-         this.Productos.push(nuevoProducto);
+            let nuevoProducto = new Producto(nombre, precio, unidades);
+            this.Productos.push(nuevoProducto);
 
         } else {
             this.Productos.push(nombre);
         }
         this.MontoTotal += (Number(precio) * Number(unidades));
 
+        //console.log(this.Productos.length);
+        this.filtrarRepetidos();
+
 
     }
+
+    filtrarRepetidos() {
+        for (let i = 0; i < this.Productos.length; i++) {
+            for (let j = 0; j < this.Productos.length; j++) {
+                if(i!==j && this.Productos[i].Nombre === this.Productos[j].Nombre){
+                    console.log(this.Productos.length);
+                    this.Repetidos += 1;
+                }                
+            }
+            
+        }
+    }
+
+
 
 
 }
