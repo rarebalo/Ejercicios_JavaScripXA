@@ -58,20 +58,25 @@ class Carrito {
     }
 
     filtrarRepetidos() {
-        let productosRepetidos = [];
-        let cuenta = 0;
+        let memoria = [];
 
         for (let i = 0; i < this.Productos.length; i++) {
             for (let j = 0; j < this.Productos.length; j++) {
-                if (i !== j && this.Productos[i] === this.Productos[j]) {
-                    productosRepetidos.push(this.Productos[j]);                    
-                    break;
+              
+                if (i!==j && this.Productos[i] === this.Productos[j]) {
+                    memoria.push(this.Productos[i]);
+                    memoria[memoria.length-1].Precio +=this.Productos[j].Precio;
+                    memoria[memoria.length-1].Unidades += 1;
+                    this.Productos.splice(j,1);
+                    j-1;
                 }
-             
-            }
+                
+            }        
+            
         }
-        this.Repetidos = productosRepetidos;
+
     }
+ 
 }
 
 let queso = new Producto("Parmesano", 500);
@@ -91,6 +96,6 @@ miCarrito.agregarProducto(pan);
 miCarrito.agregarProducto("galletas", 230, 1);
 miCarrito.agregarProducto(queso);
 
-
+console.log(miCarrito);
 console.log(miCarrito.filtrarRepetidos());
 console.log(miCarrito);
