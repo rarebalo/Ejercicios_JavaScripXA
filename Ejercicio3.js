@@ -39,42 +39,39 @@ class Carrito {
     MontoTotal = 0;
     Productos = [];
     Repetidos = 0;
+  
 
 
 
     agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades) {
 
-
         if (typeof nombre !== "object") {
-            let nuevoProducto = new Producto(nombre, precio, unidades);
-            this.Productos.push(nuevoProducto);
+            let nuevoProducto = new Producto(nombre, precio, 1);
+            for (let i = 0; i < unidades; i++) {
+                this.Productos.push(nuevoProducto);
+            }
 
         } else {
             this.Productos.push(nombre);
         }
         this.MontoTotal += (Number(precio) * Number(unidades));
-
-        //console.log(this.Productos.length);
-        this.filtrarRepetidos();
-
-
     }
 
     filtrarRepetidos() {
+        let productosRepetidos = [];
+        let cuenta = 0;
+
         for (let i = 0; i < this.Productos.length; i++) {
             for (let j = 0; j < this.Productos.length; j++) {
-                if(i!==j && this.Productos[i].Nombre === this.Productos[j].Nombre){
-                    console.log(this.Productos.length);
-                    this.Repetidos += 1;
-                }                
+                if (i !== j && this.Productos[i] === this.Productos[j]) {
+                    productosRepetidos.push(this.Productos[j]);                    
+                    break;
+                }
+             
             }
-            
         }
+        this.Repetidos = productosRepetidos;
     }
-
-
-
-
 }
 
 let queso = new Producto("Parmesano", 500);
@@ -92,5 +89,8 @@ miCarrito.agregarProducto(pan);
 miCarrito.agregarProducto(hamburguesa);
 miCarrito.agregarProducto(pan);
 miCarrito.agregarProducto("galletas", 230, 1);
+miCarrito.agregarProducto(queso);
 
+
+console.log(miCarrito.filtrarRepetidos());
 console.log(miCarrito);
