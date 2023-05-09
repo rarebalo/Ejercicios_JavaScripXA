@@ -85,6 +85,9 @@ let pan = new Producto("PanLactal", 150);
 let hamburguesa = new Producto("Paty", 400);
 let miCarrito = new Carrito();
 
+
+
+
 miCarrito.agregarProducto("tortillas", 120, 1);
 miCarrito.agregarProducto(queso);
 miCarrito.agregarProducto(queso, 350, 2);
