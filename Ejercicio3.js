@@ -38,9 +38,8 @@ class Producto {
 class Carrito {
     MontoTotal = 0;
     Productos = [];
-    Repetidos = 0;
-  
-
+    ProductosAgrupados = [];
+    ProductosRepetidos = [];
 
 
     agregarProducto(nombre = nombre.Nombre, precio = nombre.Precio, unidades = nombre.Unidades) {
@@ -54,36 +53,50 @@ class Carrito {
         } else {
             this.Productos.push(nombre);
         }
-        this.MontoTotal += (Number(precio) * Number(unidades));
+        this.MontoTotal += (Number(precio) * Number(unidades));  
     }
 
     filtrarRepetidos() {
+        if(this.MontoTotal === 0){
+            return console.log("Tu carro esta triste :( por que aun no tiene nada que mostrar. ");
+        }else{
         let memoria = [];
+        let copiaProductos = this.Productos;
 
-        for (let i = 0; i < this.Productos.length; i++) {
-            for (let j = 0; j < this.Productos.length; j++) {
+        for (let i = 0; i < copiaProductos.length; i++) {
+            for (let j = 0; j < copiaProductos.length; j++) {
               
-                if (i!==j && this.Productos[i] === this.Productos[j]) {
-                    memoria.push(this.Productos[i]);
-                    memoria[memoria.length-1].Precio +=this.Productos[j].Precio;
+                if (i!==j &&copiaProductos[i] === copiaProductos[j]) {
+                    memoria.push(copiaProductos[i]);
+                    memoria[memoria.length-1].Precio +=copiaProductos[j].Precio;
                     memoria[memoria.length-1].Unidades += 1;
-                    this.Productos.splice(j,1);
+                    copiaProductos.splice(j,1);
                     j-1;
                 }
                 
             }        
             
         }
+        for (let i = 0; i < copiaProductos.length; i++) {
+            if(copiaProductos[i].Unidades>1){
+                this.ProductosRepetidos.push(copiaProductos[i]);
+                console.log("ya existe "+ copiaProductos[i].Nombre+ " con " + copiaProductos[i].Unidades + " unidades");
+            }
+            
+        }
 
+        return this.ProductosAgrupados = copiaProductos;
+    }
     }
  
 }
 
+let miCarrito = new Carrito();
 let queso = new Producto("Parmesano", 500);
 let gaseosa = new Producto("CocaCola", 300);
 let pan = new Producto("PanLactal", 150);
 let hamburguesa = new Producto("Paty", 400);
-let miCarrito = new Carrito();
+
 
 
 
@@ -99,6 +112,6 @@ miCarrito.agregarProducto(pan);
 miCarrito.agregarProducto("galletas", 230, 1);
 miCarrito.agregarProducto(queso);
 
-console.log(miCarrito);
+//console.log(miCarrito);
 console.log(miCarrito.filtrarRepetidos());
-console.log(miCarrito);
+//console.log(miCarrito);
